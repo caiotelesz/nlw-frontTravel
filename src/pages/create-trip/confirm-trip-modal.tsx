@@ -4,10 +4,17 @@ import { Button } from "../../components/button";
 
 interface ConfirmTripModalProps {
   closeConfirmTripModal: () => void;
+  setOwnerName: (name: string) => void;
+  setOwnerEmail: (email: string) => void;
   createTrip: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-export default function ConfirmTripModal(props: ConfirmTripModalProps) {
+export default function ConfirmTripModal({
+  closeConfirmTripModal,
+  setOwnerName,
+  setOwnerEmail,
+  createTrip,
+  }: ConfirmTripModalProps) {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
       <div className="w-[640px] rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5">
@@ -16,7 +23,7 @@ export default function ConfirmTripModal(props: ConfirmTripModalProps) {
             <h2 className="text-lg font-semibold">
               Confirmar criação de viagem
             </h2>
-            <button type="button" onClick={props.closeConfirmTripModal}>
+            <button type="button" onClick={closeConfirmTripModal}>
               <X className="size-5 text-zinc-400" />
             </button>
           </div>
@@ -33,13 +40,14 @@ export default function ConfirmTripModal(props: ConfirmTripModalProps) {
           </p>
         </div>
 
-        <form onSubmit={props.createTrip} className="space-y-3">
+        <form onSubmit={createTrip} className="space-y-3">
           <div className="h-14 px-4 bg-zinc-950 border-zinc-800 rounded-lg flex items-center gap-2">
             <User className="text-zinc-400 size-5" />
             <input
               name="name"
               placeholder="Seu nome completo"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
+              onChange={event => setOwnerName(event.target.value)}
             />
           </div>
 
@@ -50,6 +58,7 @@ export default function ConfirmTripModal(props: ConfirmTripModalProps) {
               name="email"
               placeholder="Seu e-mail pessoal"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
+              onChange={event => setOwnerEmail(event.target.value)}
             />
           </div>
 

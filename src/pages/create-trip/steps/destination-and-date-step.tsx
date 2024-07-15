@@ -7,11 +7,11 @@ import "react-day-picker/dist/style.css"
 
 interface DestinationAndDateStepProps {
   isGuestsInputOpen: boolean
-  eventStartAndEndDates: DateRange | undefined
   closeGuestsInput: () => void
   openGuestsInput: () => void
   setDestination: (destination: string) => void
   setEventStartAndEndDates: (dates: DateRange | undefined) => void
+  eventStartAndEndDates: DateRange | undefined
 }
 
 export function DestinationAndDateStep({
@@ -32,7 +32,7 @@ export function DestinationAndDateStep({
       setIsDatePickerOpen(false);
     }
 
-    const displayedDate = eventStartAndEndDates && eventStartAndEndDates.from && eventStartAndEndDates.to ? format(eventStartAndEndDates.from, "d' de 'LLL").concat(' até ').concat(format(eventStartAndEndDates.to, "d' de 'LLL")) : null;
+    const displayedDate = eventStartAndEndDates && eventStartAndEndDates.from && eventStartAndEndDates.to ? format(eventStartAndEndDates.from, "d' de 'LLL").concat(' até ').concat(format(eventStartAndEndDates.to, "d' de 'LLL")) : 'Quando?';
 
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">

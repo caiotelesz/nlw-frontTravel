@@ -72,42 +72,35 @@ export function CreateTripPage() {
     setIsConfirmTripModalOpen(false);
   }
 
-  async function createTrip(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function createTrip(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
 
-    console.log(destination);
-    console.log(eventStartAndEndDates);
-    console.log(emailsToInvite);
-    console.log(ownerName);
-    console.log(ownerEmail);
+    if(!destination) {
+      return
+    }
 
-      if(!destination) {
-        return
-      }
+    if(!eventStartAndEndDates?.from || !eventStartAndEndDates?.to) {
+      return
+    }
 
-      if(!eventStartAndEndDates?.from || eventStartAndEndDates?.to) {
-        return
-      }
+    if(emailsToInvite.length === 0) {
+      return
+    }
 
-      if(emailsToInvite.length === 0) {
-        return
-      }
-
-      if(!ownerName || !ownerEmail) {
-        return
-      }
+    if(!ownerName || !ownerEmail) {
+      return
+    }
 
     const response = await api.post('/trips',{
       destination,
-      starts_at: eventStartAndEndDates?.from,
-      ends_at: eventStartAndEndDates?.to,
+      starts_at: eventStartAndEndDates.from,
+      ends_at: eventStartAndEndDates.to,
       emails_to_invite: emailsToInvite,
       owner_name: ownerName,
       owner_email: ownerEmail
     })
 
     const { tripId } = response.data
-
     navigate(`/trips/${tripId}`)
   }
 
@@ -135,7 +128,7 @@ export function CreateTripPage() {
             <InviteGuestsStep 
               emailsToInvite={emailsToInvite}
               openConfirmTripModal={openConfirmTripModal}
-              openGuestsModal={openGuestsModal} //Pode haver erro aqui
+              openGuestsModal={openGuestsModal}
             />
           )}
         </div>
